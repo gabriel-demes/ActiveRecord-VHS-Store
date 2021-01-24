@@ -25,7 +25,9 @@ class Client < ActiveRecord::Base
     end
 
     def favorite_genre
-        vhs.map(&:movie).map(&:genres).flatten.mode
+        genres =vhs.map(&:movie).map(&:genres).flatten
+        favorite_genre = genres.max_by{|genre| genres.count(genre)}
+        puts favorite_genre.name
     end
 
 
