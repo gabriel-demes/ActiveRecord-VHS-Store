@@ -12,13 +12,22 @@ class Client < ActiveRecord::Base
         Rental.create(vhs_id: can_rent.id, client_id: client.id, current: true)
     end
 
+    def current_rentals
+        Rental.where(client_id: self.id, current: true)
+    end
+
     def returned_rentals
-        Rental.where{client_id: self.id, current:false}
+        Rental.where(client_id:self.id, current:false)
     end
 
     def self.most_active
         all.max_by(5){|client| client.returned_rentals.length}
     end
+
+    def favorite_genre
+        vhs.map(&:movie).map(&:genres).flatten.mode
+    end
+
 
     def self.paid_most
         most_paid = all[0] #all[0] just means client 1

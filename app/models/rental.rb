@@ -16,7 +16,7 @@ class Rental < ActiveRecord::Base
     end
 
     def self.past_due_date
-        all.select{|rental| rental.overdue? || rental.late_return?}
+        all.select{|rental| rental.over_due? || rental.late_return?}
     end
 
 end
