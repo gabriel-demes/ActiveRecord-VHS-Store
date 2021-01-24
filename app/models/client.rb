@@ -3,6 +3,7 @@ class Client < ActiveRecord::Base
     has_many :rentals
     has_many :vhs, through: :rentals
     
+
     def self.first_rents(client_info, movie_title)
         client = Client.create(client_info)
         movie = Movie.find_by_title(movie_title)
@@ -12,4 +13,8 @@ class Client < ActiveRecord::Base
     end
 
 
+
+    def self.most_active
+        all.
+    end
 end
