@@ -12,9 +12,12 @@ class Client < ActiveRecord::Base
         Rental.create(vhs_id: can_rent.id, client_id: client.id, current: true)
     end
 
-
-
-    def self.most_active
-        all.
+    def self.paid_most
+        most_paid = all[0] #all[0] just means client 1
+        all.each do |client|
+            if client.rentals.length > most_paid.rentals.length
+                most_paid = client
+            end
+        most_paid
     end
 end
