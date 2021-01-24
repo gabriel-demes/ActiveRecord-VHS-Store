@@ -21,4 +21,20 @@ class Client < ActiveRecord::Base
         end
         most_paid
     end
+
+    def return_one(vhs)
+        rental = Rental.find_by(client_id: self.id, vhs_id: vhs.id)
+        rental.update(current: false)
+    end
+
+    def return_all
+        rentals = Rental.where(client_id: self.id, current: true)
+        rentals.update_all(current: false)
+    end
+
+    def last_return
+        self.return_all
+        client = Client.find(self.id)
+        client.destroy
+    end
 end
