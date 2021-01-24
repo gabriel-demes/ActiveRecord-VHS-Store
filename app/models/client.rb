@@ -8,7 +8,7 @@ class Client < ActiveRecord::Base
         client = Client.create(client_info)
         movie = Movie.find_by_title(movie_title)
         copies = Vhs.where(movie_id: movie.id)
-        can_rent = copies.find{|copy| copy.can_be_rented?}
+        can_rent = copies.find{|copy| copy.can_be_rented? || copy.rented_before?}
         Rental.create(vhs_id: can_rent.id, client_id: client.id, current: true)
     end
 

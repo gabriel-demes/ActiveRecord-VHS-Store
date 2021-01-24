@@ -1,13 +1,17 @@
 class Vhs < ActiveRecord::Base
-    after_initialize :add_serial_number
-
     belongs_to :movie
     has_many :rentals
     has_many :clients, through: :rentals
+    
+    after_initialize :add_serial_number
 
 
     def can_be_rented?
         Rental.find_by(vhs_id: self.id, current: false)
+    end
+
+    def rented_before?
+        !Rental.find_by(vhs_id: self.id).nil?
     end
 
 
