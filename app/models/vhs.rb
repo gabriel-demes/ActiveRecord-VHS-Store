@@ -5,6 +5,9 @@ class Vhs < ActiveRecord::Base
     has_many :rentals
     has_many :clients, through: :rentals
 
+    def is_available?
+        Rental.find_by(vhs_id: self.id, current: false)
+    end
 
     private
 
