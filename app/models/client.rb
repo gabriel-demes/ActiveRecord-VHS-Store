@@ -18,6 +18,7 @@ class Client < ActiveRecord::Base
             if client.rentals.length > most_paid.rentals.length
                 most_paid = client
             end
+        end
         most_paid
     end
 end
