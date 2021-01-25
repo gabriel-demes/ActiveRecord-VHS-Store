@@ -30,6 +30,10 @@ class Client < ActiveRecord::Base
         puts favorite_genre.name
     end
 
+    def self.non_grata
+        Rental.past_due_date.map(&:client)  #...map{|rental| rental.client}
+    end
+
 
     def self.paid_most
         most_paid = all[0] #all[0] just means client 1
@@ -39,6 +43,10 @@ class Client < ActiveRecord::Base
             end
         end
         most_paid
+    end
+
+    def self.total_watch_time
+        Rental.all.length
     end
 
     def return_one(vhs)

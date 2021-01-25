@@ -14,6 +14,17 @@ class Vhs < ActiveRecord::Base
         !Rental.find_by(vhs_id: self.id).nil?
     end
 
+    def self.hot_from_the_press(movie_info, genre_name)
+        movie = Movie.create(movie_info)
+        genre = Genre.find_by_name(genre_name)
+        if !genre
+            genre = Genre.create(genre_name)
+        end
+        MovieGenre.create(movie_id: movie.id, genre_id: genre.id)
+        3.times {Vhs.create(movie_id: movie.id)}
+    end
+
+
 
 
 
